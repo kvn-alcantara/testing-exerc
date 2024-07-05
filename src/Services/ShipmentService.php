@@ -21,7 +21,6 @@ class ShipmentService
             return $totalPrice;
         }
 
-        var_dump($chart->user->cep);
         $shipmentTax = $this->shipmentGateway->getTax($chart->user->cep);
 
         return $totalPrice + $shipmentTax;
