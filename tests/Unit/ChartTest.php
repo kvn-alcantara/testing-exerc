@@ -84,4 +84,30 @@ class ChartTest extends TestCase
 
         $this->assertEquals(30.0, $total);
     }
+
+    #[Test]
+    public function shouldCalculateTotalPriceWithQuantity(): void
+    {
+        $product1 = new Product('Product 1', 10.0);
+        $product2 = new Product('Product 2', 20.0);
+        $chart = new Chart(user: new User('User 1', new Cep('00000-000')));
+
+        $chart->addProduct($product1);
+        $chart->addProduct($product1);
+        $chart->addProduct($product2);
+
+        $total = $chart->getTotalPrice();
+
+        $this->assertEquals(40.0, $total);
+    }
+
+    #[Test]
+    public function shouldReturnZeroIfChartIsEmpty(): void
+    {
+        $chart = new Chart(user: new User('User 1', new Cep('00000-000')));
+
+        $total = $chart->getTotalPrice();
+
+        $this->assertEquals(0.0, $total);
+    }
 }

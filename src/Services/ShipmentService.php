@@ -17,7 +17,11 @@ class ShipmentService
     {
         $totalPrice = $chart->getTotalPrice();
 
-        if ($totalPrice >= 100) {
+        if ($totalPrice === 0.0) {
+            return 0.00;
+        }
+
+        if ($totalPrice >= 100.00) {
             return $totalPrice;
         }
 
