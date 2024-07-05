@@ -55,4 +55,19 @@ class ShipmentServiceTest extends TestCase
 
         $shipmentService->getFinalValue($chart);
     }
+
+    #[Test]
+    public function shouldReturnZeroIfChartIsEmpty(): void
+    {
+        $shipmentGateway = $this->createMock(ShipmentGatewayContract::class);
+        $shipmentGateway->expects($this->never())->method('getTax');
+
+        $shipmentService = new ShipmentService($shipmentGateway);
+
+        $chart = new Chart(user: new User('User 1', new Cep('00000-000')));
+
+        $totalPrice = $shipmentService->getFinalValue($chart);
+
+        $this->assertEquals(0.0, $totalPrice);
+    }
 }

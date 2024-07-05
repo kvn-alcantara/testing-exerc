@@ -17,11 +17,14 @@ class ShipmentService
     {
         $totalPrice = $chart->getTotalPrice();
 
-        if ($totalPrice >= 100) {
+        if ($totalPrice === 0.0) {
+            return 0.00;
+        }
+
+        if ($totalPrice >= 100.00) {
             return $totalPrice;
         }
 
-        var_dump($chart->user->cep);
         $shipmentTax = $this->shipmentGateway->getTax($chart->user->cep);
 
         return $totalPrice + $shipmentTax;
