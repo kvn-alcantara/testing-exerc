@@ -55,6 +55,22 @@ class ChartTest extends TestCase
     }
 
     #[Test]
+    public function shouldNotRemoveProductIfItDoesNotExist(): void
+    {
+        $product1 = new Product('Product 1', 10.0);
+        $product2 = new Product('Product 2', 20.0);
+        $chart = new Chart(user: new User('User 1', new Cep('00000-000')));
+
+        $chart->addProduct($product1);
+
+        $chart->removeProduct($product2);
+
+        $products = $chart->getProducts();
+
+        $this->assertCount(1, $products);
+    }
+
+    #[Test]
     public function shouldDecrementProductQuantity(): void
     {
         $product = new Product('Product 1', 10.0);
